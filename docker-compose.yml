@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+  profiles:
+    container_name: profiles
+    build:
+      context: ./profiles
+    ports:
+      - 3000:3000
+    depends_on:
+      - rabbitmq
+      - postgres_profiles
+    command: npm run start
+    restart: always
+
+  auth:
+    container_name: auth
+    build:
+      context: ./auth
+    ports:
+      - 3001:3001
+    depends_on:
+      - rabbitmq
+      - postgres_auth
+    command: npm run start
+    restart: always
+
+  postgres_profiles:
+    container_name: 'postgres_profiles'
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: "nest-microservices-profiles"
+      PG_DATA: /var/lib/postgresql/data
+    volumes:
+      - postgres_profiles:/var/lib/postgresql/data
+    restart: always
+
+  postgres_auth:
+    container_name: 'postgres_auth'
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: "nest-microservices-auth"
+      PG_DATA: /var/lib/postgresql/data
+    volumes:
+      - postgres_auth:/var/lib/postgresql/data
+    restart: always
+
+  rabbitmq:
+    container_name: 'rabbitmq'
+    image: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - 5672:5672
+      - 15672:15672
+    restart: always
+
+volumes:
+  postgres_profiles:
+  postgres_auth:
