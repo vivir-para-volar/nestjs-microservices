@@ -1,7 +1,7 @@
 <h1> Задание для 4 этапа </h1>
-<h3>Nest.js microservices</h3>
+<h3>NestJS microservices</h3>
 <p>
-<br><a href="https://github.com/vivir-para-volar/nest-server">Проект nest.js</a> разбить на микросервисы.
+<br><a href="https://github.com/vivir-para-volar/nest-server">Проект NestJS</a> разбить на микросервисы.
 <br>Cделать проект, состоящий только из двух микросервисов - профиль и авториазация.
 <br>Проект должен:
 <br>- запускаться через docker
